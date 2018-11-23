@@ -1,0 +1,841 @@
+
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 50.8805932
+  longitude: 6.8881425
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 91
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Europe/Berlin
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+#for SQLite
+recorder:
+  #db_url: !secret sql_recorder
+
+http:
+  # Uncomment this to add a password (recommended!)
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+logger:
+  default: warning
+  logs:
+    homeassistant.components.mqtt: debug
+
+device_tracker:
+  - platform: nmap_tracker
+    hosts: 192.168.1.138 #changed
+    home_interval: 10
+    consider_home: 180
+
+# Enables support for tracking state changes over time
+history:
+  exclude:
+   entities:
+     - switch.Funk_Kueche
+     - switch.Audio_Bad
+     - binary_sensor.Sound_Kueche
+     - switch.Funk_Arbeitszimmer
+     - binary_sensor.Motion_Arbeitszimmer
+     - binary_sensor.Sound_Arbeitszimmer
+     - switch.Funk_Schlafzimmer
+     - binary_sensor.Motion_Schlafzimmer
+     - binary_sensor.Sound_Schlafzimmer
+     - switch.Funk_Pott
+     - binary_sensor.Motion_Pott
+     - switch.Funk_Bad
+     - switch.Funk_Chamber
+     - binary_sensor.Motion_Chamber
+     - sensor.Weather
+
+# View all events in a logbook
+logbook:
+
+hassio:
+
+cloud:
+  google_actions:
+    filter:
+      include_domains:
+        - switch
+        - light
+        - climate
+        - script
+        - scene
+        - input_boolean
+      exclude_entities:
+        - group.automation
+
+maxcube:
+  gateways:
+    - host: 192.168.1.195 #changed
+      port: 62910
+
+climate:
+  - platform: maxcube
+  - platform: generic_thermostat
+    name: Temperatur Wohnzimmer
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Wohnzimmer
+  - platform: generic_thermostat
+    name: Temperatur Kueche
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Kueche
+  - platform: generic_thermostat
+    name: Temperatur Arbeitszimmer
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Arbeitszimmer
+  - platform: generic_thermostat
+    name: Temperatur Schlafzimmer
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Schlafzimmer
+  - platform: generic_thermostat
+    name: Temperatur Pott
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Pott
+  - platform: generic_thermostat
+    name: Temperatur Bad
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Bad
+  - platform: generic_thermostat
+    name: Temperatur Chamber
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Chamber
+  - platform: generic_thermostat
+    name: Temperatur Balkon
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Balkon
+  - platform: generic_thermostat
+    name: Temperatur Patrick
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Patricks_Room
+  - platform: generic_thermostat
+    name: Temperatur Flur
+    heater: input_boolean.FakeHeater
+    target_sensor: sensor.Temperature_Flur
+
+panel_iframe:
+  kodi:
+    title: 'Kodi'
+    url: 'http://192.168.1.200:8080' #changed
+    icon: mdi:kodi
+
+# Track the sun
+sun:
+
+media_player:
+  - platform: kodi
+    name: "Kodi"
+    host: 192.168.1.200
+    turn_on_achtion:
+    - service: switch.turn_on
+      entity_id: switch.Funk_HDD
+    turn_off_action:
+    - service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi
+        method: System.Shutdown
+    - delay: 00:00:15
+    - service: switch.turn_off
+      entity_id: switch.Funk_HDD
+
+# Weather prediction
+sensor:
+  - platform: yr
+    name: Weather
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - humidity
+  - platform: speedtest
+    minute:
+      - 0
+      - 30
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+  - platform: fastdotcom
+    minute:
+      - 0
+      - 30
+    manual: True
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+      - 'time_utc'
+      - 'beat'
+  - platform: cpuspeed
+
+
+# Text to speech
+tts:
+  - platform: google
+    language: 'de'
+
+mqtt:
+  broker: 192.168.1.192 #changed
+  port: 1883
+  client_id: home-assistant-1
+  keepalive: 60
+
+sensor 1:
+  - platform: mqtt
+    state_topic: "homie/a020a6291815/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Arbeitszimmer"
+
+sensor 2:
+  - platform: mqtt
+    state_topic: "homie/a020a6291815/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Arbeitszimmer"
+
+sensor 3:
+  - platform: mqtt
+    state_topic: "homie/5ccf7f34095f/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Kueche"
+
+sensor 4:
+  - platform: mqtt
+    state_topic: "homie/5ccf7f34095f/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Kueche"
+
+sensor 5:
+  - platform: mqtt
+    state_topic: "homie/a020a6021250/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Schlafzimmer"
+
+sensor 6:
+  - platform: mqtt
+    state_topic: "homie/a020a6021250/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Schlafzimmer"
+
+sensor 7:
+  - platform: mqtt
+    state_topic: "homie/18fe34d78eba/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Pott"
+
+sensor 8:
+  - platform: mqtt
+    state_topic: "homie/18fe34d78eba/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Pott"
+
+sensor 9:
+  - platform: mqtt
+    state_topic: "homie/5ccf7ffa70ff/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Bad"
+
+sensor 10:
+  - platform: mqtt
+    state_topic: "homie/5ccf7ffa70ff/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Bad"
+
+sensor 11:
+  - platform: mqtt
+    state_topic: "homie/6001942201de/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Chamber"
+
+sensor 12:
+  - platform: mqtt
+    state_topic: "homie/6001942201de/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Chamber"
+
+sensor 13:
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Flur"
+
+sensor 14:
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Flur"
+
+sensor 15:
+  - platform: mqtt
+    state_topic: "homie/5ccf7fa2e887/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Wohnzimmer"
+
+sensor 16:
+  - platform: mqtt
+    state_topic: "homie/5ccf7fa2e887/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Wohnzimmer"
+
+sensor 17:
+  - platform: mqtt
+    state_topic: "homie/60019422344b/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Balkon"
+
+sensor 18:
+  - platform: mqtt
+    state_topic: "homie/60019422344b/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Balkon"
+
+sensor 19:
+  - platform: mqtt
+    state_topic: "homie/a020a6291843/temperature/degrees"
+    unit_of_measurement: "°C"
+    name: "Temperature Patricks Room"
+
+sensor 20:
+  - platform: mqtt
+    state_topic: "homie/a020a6291843/humidity/degrees"
+    unit_of_measurement: "%"
+    name: "Humidity Patricks Room"
+
+
+binary_sensor 1:
+  - platform: mqtt
+    state_topic: "homie/a020a6291815/light/state"
+    name: "Light Arbeitszimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 2:
+  - platform: mqtt
+    state_topic: "homie/a020a6291815/motion/state"
+    name: "Motion Arbeitszimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 3:
+  - platform: mqtt
+    state_topic: "homie/a020a6291815/sound/state"
+    name: "Sound Arbeitszimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 4:
+  - platform: mqtt
+    state_topic: "homie/5ccf7f34095f/light/state"
+    name: "Light Kueche"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 5:
+  - platform: mqtt
+    state_topic: "homie/5ccf7f34095f/sound/state"
+    name: "Sound Kueche"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 6:
+  - platform: mqtt
+    state_topic: "homie/a020a6021250/light/state"
+    name: "Light Schlafzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 7:
+  - platform: mqtt
+    state_topic: "homie/a020a6021250/motion/state"
+    name: "Motion Schlafzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 8:
+  - platform: mqtt
+    state_topic: "homie/a020a6021250/sound/state"
+    name: "Sound Schlafzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 9:
+  - platform: mqtt
+    state_topic: "homie/18fe34d78eba/light/state"
+    name: "Light Pott"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/18fe34d78eba/motion/state"
+    name: "Motion Pott"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 10:
+  - platform: mqtt
+    state_topic: "homie/60019422344b/motion/state"
+    name: "Motion Balkon"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/68c63aa4c61d/motion/state"
+    name: "Motion TestDevice"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 11:
+  - platform: mqtt
+    state_topic: "homie/5ccf7ffa70ff/light/state"
+    name: "Light Bad"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 12:
+  - platform: mqtt
+    state_topic: "homie/6001942201de/light/state"
+    name: "Light Chamber"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 13:
+  - platform: mqtt
+    state_topic: "homie/6001942201de/motion/state"
+    name: "Motion Chamber"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 14:
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/light/state"
+    name: "Light Flur"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 15:
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/motion1/state"
+    name: "Motion FlurBack"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/motion2/state"
+    name: "Motion FlurFront"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/a020a617acd1/sound/state"
+    name: "Sound Flur"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 16:
+  - platform: mqtt
+    state_topic: "homie/5ccf7fa2e887/sound/state"
+    name: "Sound Wohnzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/5ccf7fa2e887/light/state"
+    name: "Light Wohnzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    state_topic: "homie/5ccf7fa2e887/motion/state"
+    name: "Motion Wohnzimmer"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 18:
+  - platform: mqtt
+    state_topic: "homie/60019422344b/light/state"
+    name: "Light Balkon"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+#binary_sensor 19:
+#  - platform: mqtt
+#    state_topic: "homie/18fe34d78eba/motion/state"
+#    name: "Motion Balkon"
+#    qos: 0
+#    payload_on: "on"
+#    payload_off: "off"
+
+binary_sensor 20:
+  - platform: mqtt
+    state_topic: "homie/a020a6291843/light/state"
+    name: "Light Patricks Room"
+    qos: 0
+    payload_on: "on"
+    payload_off: "off"
+
+binary_sensor 21:
+  - platform: iss
+    show_on_map: false
+
+camera:
+  - platform: generic
+    name: ISS
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ states.binary_sensor.iss.attributes.lat }},{{ states.binary_sensor.iss.attributes.long }}&zoom=5&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:P%7C{{ states.binary_sensor.iss.attributes.lat }},{{ states.binary_sensor.iss.attributes.long }}
+    limit_refetch_to_url_change: true
+
+
+switch 1:
+  -  platform: mqtt
+     name: "Funk Arbeitszimmer"
+     state_topic: "homie/a020a6291815/funkA/dev_1"
+     command_topic: "homie/a020a6291815/funkA/dev_1/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
+  -  platform: mqtt
+     name: "Power Steckerleiste"
+     state_topic: "homie/a020a6291815/funkA/dev_3"
+     command_topic: "homie/a020a6291815/funkA/dev_3/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
+  -  platform: mqtt
+     name: "Funk Patricks Room"
+     state_topic: "homie/a020a6291843/funkG/dev_1"
+     command_topic: "homie/a020a6291843/funkG/dev_1/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
+
+switch 2:
+    platform: mqtt
+    name: "Funk Kueche"
+    state_topic: "homie/5ccf7f34095f/funkK/dev_1"
+    command_topic: "homie/5ccf7f34095f/funkK/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 3:
+    platform: mqtt
+    name: "Audio Bad"
+    icon: mdi:speaker
+    state_topic: "homie/5ccf7f34095f/funkK/dev_2"
+    command_topic: "homie/5ccf7f34095f/funkK/dev_2/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 4:
+    platform: mqtt
+    name: "Funk Pott"
+    state_topic: "homie/a020a6021250/funkP/dev_1"
+    command_topic: "homie/a020a6021250/funkP/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 5:
+    platform: mqtt
+    name: "Funk Bad"
+    state_topic: "homie/a020a6021250/funkB/dev_1"
+    command_topic: "homie/a020a6021250/funkB/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 6:
+    platform: mqtt
+    name: "Funk Schlafzimmer"
+    state_topic: "homie/a020a6021250/funkS/dev_1"
+    command_topic: "homie/a020a6021250/funkS/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 7:
+    platform: mqtt
+    name: "Funk Flur"
+    state_topic: "homie/5ccf7f34095f/funkK/dev_3"
+    command_topic: "homie/5ccf7f34095f/funkK/dev_3/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 8:
+    platform: mqtt
+    name: "Funk Chamber"
+    state_topic: "homie/a020a6291843/funkG/dev_2"
+    command_topic: "homie/a020a6291843/funkG/dev_2/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 9:
+    platform: mqtt
+    name: "Schrankwand"
+    state_topic: "homie/5ccf7fa2e887/funkWZ/dev_1"
+    command_topic: "homie/5ccf7fa2e887/funkWZ/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 10:
+    platform: mqtt
+    name: "Tischbeleuchtung"
+    state_topic: "homie/5ccf7fa2e887/funkWZ/dev_2"
+    command_topic: "homie/5ccf7fa2e887/funkWZ/dev_2/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 11:
+    platform: mqtt
+    name: "Audio Wohnzimmer"
+    icon: mdi:speaker
+    state_topic: "homie/5ccf7fa2e887/funkWZ/dev_3"
+    command_topic: "homie/5ccf7fa2e887/funkWZ/dev_3/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 12:
+    platform: mqtt
+    name: "Funk HDD"
+    state_topic: "homie/5ccf7fa2e887/funkWZ/dev_4"
+    command_topic: "homie/5ccf7fa2e887/funkWZ/dev_4/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 13:
+    platform: mqtt
+    name: "Funk Hauptlicht"
+    state_topic: "homie/a020a6291815/funkA/dev_2"
+    command_topic: "homie/a020a6291815/funkA/dev_2/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+switch 14:
+    platform: mqtt
+    name: "Test Switch"
+    state_topic: "homie/68c63aa4c61d/funk/dev_1"
+    command_topic: "homie/68c63aa4c61d/funk/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+
+input_boolean:
+  cinema:
+      name: "Cinema"
+      initial: off
+      icon: mdi:television
+  koelle:
+      name: "Koelle"
+      initial: off
+  fakeheater:
+      name: "FakeHeater"
+      initial: off
+  couchbeleuchtung:
+      name: "Couchbeleuchtung"
+      initial: off
+      icon: mdi:lightbulb
+  entertainment:
+      name: "Entertainment"
+      initial: off
+      icon: mdi:television
+  ambiente:
+      name: "Ambiente"
+      initial: off
+      icon: mdi:lightbulb
+  kodi:
+      name: "Kodi"
+      initial: off
+      icon: mdi:kodi
+
+
+light:
+  - platform: yeelight
+    devices:
+      192.168.1.136: #34:CE:00:87:C7:0F #changed
+        name: Living Room Couch
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.108: #34:CE:00:87:B7:FA # changed
+        name: Living Room NewYork
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.116: #changed
+        name: Yeelight Schlafzimmer
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.143: #changed
+        name: Kueche1
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.144: #changed
+        name: Kueche2
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.146: #changed
+        name: Flur Back
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.148: #changed
+        name: Flur Front
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.164: #34:CE:00:87:E6:FF #changed
+        name: Living Room Board
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.31: #changed
+        name: Living Room Corner
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+      192.168.1.150: #changed
+        name: Yeelight Balkon
+        transition: 1000
+        use_music_mode: True #(defaults to False)
+        save_on_change: False #(defaults to True)
+
+remote:
+  - platform: xiaomi_miio
+    name: "Wohnzimmer Remote"
+    host: 192.168.1.41
+    token: DD17AF64901DCDC9B3640098BFFD4D54
+
+
+scene:
+  - name: Movie
+    entities:
+      switch.Audio_Wohnzimmer: on
+      switch.Funk_Hauptlicht: off
+      switch.Tischbeleuchtung: off
+    #  light.Living_Room_Board:
+    #    state: on
+    #    color_name: mediumblue #hotpink
+    #    brightness: 255
+  - name: Light OFF
+    entities:
+      switch.Funk_Arbeitszimmer: off
+      switch.Funk_Schlafzimmer: off
+
+input_number:
+  volume_radio:
+    name: Volume
+    icon: mdi:volume-high
+    min: 0
+    max: 1
+    step: 0.05
+
+input_select:
+  radio_station:
+    name: 'Select Radio Station:'
+    options:
+      - 1Live
+      - Panamericana
+      - Bob!
+      - 100,5
+      - Sky Radio
+      - Arrow Classic Rock
+      - Classic FM
+      - BNR Nieuwsradio
+      - SLAM! Hardstyle
+      - Sleep Radio
+      - Ambient Sleeping Pill
+      - Radio Art - Sleep
+      - Ambi Nature Radio
+      - Calm Radio - Sleep
+      - Dinamo.FM Sleep
+  chromecast_radio:
+    name: 'Select Speakers:'
+    options:
+      - TV_Wohnzimmer
+      - Sound_Wohnzimmer
+      - Kueche
+      - Bad
+      - Everywhere
+    initial: Everywhere
+    icon: mdi:speaker-wireless
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml

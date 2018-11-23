@@ -1,0 +1,20 @@
+media_player.disco_dusche:
+  config_entry_id: 77481201b4f3483ba9a5fe729f0dcadd
+  name:
+  platform: cast
+  unique_id: cfc33456-5529-53c9-bef6-27f162e10a33
+media_player.media_wohnzimmer:
+  config_entry_id: 77481201b4f3483ba9a5fe729f0dcadd
+  name:
+  platform: cast
+  unique_id: 027c9ae3-3bfa-f715-3046-da3880e26eb6
+media_player.moneypenny:
+  config_entry_id: 77481201b4f3483ba9a5fe729f0dcadd
+  name:
+  platform: cast
+  unique_id: 59991f5b-dcba-c2fb-332e-3be015bab310
+remote.wohnzimmer_remote:
+  config_entry_id:
+  name:
+  platform: xiaomi_miio
+  unique_id: chuangmi.ir.v2-7C:49:EB:23:B1:F7

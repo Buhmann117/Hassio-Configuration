@@ -1,0 +1,296 @@
+default_view:
+    view: yes
+    icon: mdi:home
+    entities:
+      - updater.updater
+      - sun.sun
+      - sensor.weather_symbol
+      - device_tracker.84be52018da6
+      - sensor.time
+      - sensor.date
+      - sensor.cpuspeed
+      - group.Wetter
+      - group.Internet
+      - group.Residence_Radio
+      - group.ISS
+      - script.restart_home_assistant
+
+Data:
+    view: yes
+    icon: mdi:information-outline
+    entities:
+      - group.Temperature
+      - group.Humidity
+Kueche:
+    name: Kueche
+    view: yes
+    icon: mdi:silverware-variant
+    entities:
+      - sensor.Temperature_Kueche
+      - sensor.Humidity_Kueche
+      - binary_sensor.Sound_Kueche
+      - group.Kueche_Light
+      - media_player.MoneyPenny
+
+Wohnzimmer:
+    view: yes
+    icon: mdi:sofa
+    entities:
+      - sensor.Temperature_Wohnzimmer
+      - sensor.Humidity_Wohnzimmer
+      - binary_sensor.Sound_Wohnzimmer
+      - binary_sensor.Light_Wohnzimmer
+      - binary_sensor.Motion_Wohnzimmer
+      - group.Wohnzimmer_Light
+      - climate.wohnzimmer__thermostat_2
+      - media_player.media_wohnzimmer
+      - media_player.Kodi
+      - media_player.cortana
+      - input_boolean.cinema
+      - input_boolean.koelle
+      - input_boolean.entertainment
+      - input_boolean.kodi
+      - script.irlamp_lamp
+      - script.television_power
+
+Bad & Pott:
+    view: yes
+    icon: mdi:human-male-female
+    entities:
+      - sensor.Temperature_Bad
+      - sensor.Temperature_Pott
+      - sensor.Humidity_Bad
+      - sensor.Humidity_Pott
+      #- binary_sensor.Motion_Pott
+      - group.Bad
+      - group.Pott
+
+Private:
+    view: yes
+    icon: mdi:glasses
+    entities:
+      - sensor.Temperature_Arbeitszimmer
+      - sensor.Temperature_Schlafzimmer
+      - sensor.Humidity_Arbeitszimmer
+      - sensor.Humidity_Schlafzimmer
+      - group.Arbeitszimmer
+      - group.Schlafzimmer
+
+Kammer:
+  view: yes
+  entities:
+    - sensor.Temperature_Chamber
+    - sensor.Humidity_Chamber
+    - binary_sensor.Motion_Chamber
+    - group.Chamber
+
+Flur:
+  view: yes
+  entities:
+    - sensor.Temperature_Flur
+    - sensor.Humidity_Flur
+    - binary_sensor.Sound_Flur
+    - binary_sensor.Motion_FlurBack
+    - binary_sensor.Motion_FlurFront
+    - group.Flur_Light
+
+Patricks Room:
+  name: Patricks Room
+  view: yes
+  #icon: mdi:silverware-variant
+  entities:
+    - sensor.Temperature_Patricks_Room
+    - sensor.Humidity_Patricks_Room
+    - binary_sensor.Light_Patricks_Room
+    - switch.Funk_Patricks_Room
+    - climate.patrick_thermostat_4
+
+
+Licht:
+  view: yes
+  icon: mdi:lightbulb-outline
+  entities:
+    - group.yeelight
+    - group.Funk
+    - group.Light_Sensor
+
+Balkon:
+  view: yes
+  entities:
+    - sensor.Temperature_Balkon
+    - sensor.Humidity_Balkon
+    #- binary_sensor.Motion_Balkon
+    - group.Balkon_Light
+
+Automation:
+      view: yes
+      #icon: mdi:
+      entities:
+        #- automation.chamber_switch_off_after_motion
+        - automation.internet_speed_glow_connect_great
+        - automation.internet_speed_glow_connect_poor
+        #- automation.light_control_off_bad
+        - automation.light_control_off_schlafzimmer
+        #- automation.light_control_on_bad
+        - automation.light_control_on_schlafzimmer
+        #- automation.motion_control_chamber
+        #- automation.motion_control_pott
+        #- automation.pott_switch_off_after_motion
+        #- automation.light_control_on_pott
+        #- automation.light_control_off_pott
+        #- automation.light_control_on_chamber
+        #- automation.light_control_off_chamber
+        #- automation.motion_control_flur
+        - automation.flur_switch_off_after_motion
+        - automation.motion_control_balkon
+        - automation.Disco_Bad
+        - automation.Motion_Alarm
+        - automation.Adios
+Lab:
+    view: yes
+    entities:
+        - binary_sensor.Motion_TestDevice
+        - switch.Test_Switch
+        - remote.Wohnzimmer_Remote
+Yeelight:
+    - light.Living_Room_Couch
+    - light.Living_Room_NewYork
+    - light.Living_Room_Board
+    - light.Living_Room_Corner
+    - light.Yeelight_Kueche1
+    - light.Yeelight_Kueche2
+    - light.Flur_Front
+    - light.Flur_Back
+    - light.Yeelight_Schlafzimmer
+    - light.Yeelight_Balkon
+
+Funk:
+    - switch.Funk_Hauptlicht
+    - switch.Tischbeleuchtung
+    - switch.Funk_HDD
+    - switch.Funk_Kueche
+    - switch.Funk_Arbeitszimmer
+    - switch.Power_Steckerleiste
+    - switch.Funk_Schlafzimmer
+    - switch.Funk_Pott
+    - switch.Funk_Bad
+    - switch.Funk_Chamber
+    - switch.Funk_Flur
+    - switch.Funk_Patricks_Room
+Internet:
+    - sensor.speedtest_download
+    - sensor.speedtest_ping
+    - sensor.speedtest_upload
+    - sensor.fastcom_download
+Wetter:
+    - sensor.weather_temperature
+    - sensor.Temperature_Balkon
+    - sensor.weather_humidity
+    - sensor.Humidity_Balkon
+    - sensor.weather_pressure
+    - sensor.weather_wind_speed
+
+Temperature:
+    - sensor.Temperature_Wohnzimmer
+    - sensor.Temperature_Kueche
+    - sensor.Temperature_Arbeitszimmer
+    - sensor.Temperature_Schlafzimmer
+    - sensor.Temperature_Pott
+    - sensor.Temperature_Bad
+    - sensor.Temperature_Chamber
+    - sensor.Temperature_Balkon
+    - sensor.Temperature_Patricks_Room
+    - sensor.Temperature_Flur
+Humidity:
+    - sensor.Humidity_Wohnzimmer
+    - sensor.Humidity_Kueche
+    - sensor.Humidity_Arbeitszimmer
+    - sensor.Humidity_Schlafzimmer
+    - sensor.Humidity_Pott
+    - sensor.Humidity_Bad
+    - sensor.Humidity_Chamber
+    - sensor.Humidity_Balkon
+    - sensor.Humidity_Patricks_Room
+    - sensor.Humidity_Flur
+Light Sensor:
+    - binary_sensor.Light_Wohnzimmer
+    - binary_sensor.Light_Kueche
+    - binary_sensor.Light_Arbeitszimmer
+    - binary_sensor.Light_Schlafzimmer
+    - binary_sensor.Light_Pott
+    - binary_sensor.Light_Bad
+    - binary_sensor.Light_Chamber
+    - binary_sensor.Light_Balkon
+    - binary_sensor.Light_Patricks_Room
+    - binary_sensor.Light_Flur
+Kueche Light:
+    - switch.Funk_Kueche
+    - light.Kueche1
+    - light.Kueche2
+    - binary_sensor.Light_Kueche
+Arbeitszimmer:
+    - switch.Funk_Arbeitszimmer
+    - binary_sensor.Light_Arbeitszimmer
+    - switch.Power_Steckerleiste
+    #- binary_sensor.Motion_Arbeitszimmer
+    - binary_sensor.Sound_Arbeitszimmer
+    - climate.arbeitszimmer__thermostat_3
+Schlafzimmer:
+    - switch.Funk_Schlafzimmer
+    - light.Yeelight_Schlafzimmer
+    - binary_sensor.Light_Schlafzimmer
+    #- binary_sensor.Motion_Schlafzimmer
+    - binary_sensor.Sound_Schlafzimmer
+    - climate.schlafzimmer_thermostat_1
+Pott:
+    - switch.Funk_Pott
+    - binary_sensor.Light_Pott
+Bad:
+    - switch.Funk_Bad
+    - binary_sensor.Light_Bad
+    - switch.Audio_Bad
+    - media_player.Disco_Dusche
+Chamber:
+    - switch.Funk_Chamber
+    - binary_sensor.Light_Chamber
+Flur Light:
+    - binary_sensor.Light_Flur
+    - switch.Funk_Flur
+    - light.Flur_Front
+    - light.Flur_Back
+Wohnzimmer Light:
+    - input_boolean.couchbeleuchtung
+    - switch.Tischbeleuchtung
+    - switch.Schrankwand
+    - light.Living_Room_Couch
+    - light.Living_Room_NewYork
+    - light.Living_Room_Board
+    - light.Living_Room_Corner
+    - input_boolean.ambiente
+Balkon Light:
+    - light.Yeelight_Balkon
+    - binary_sensor.Light_Balkon
+    - binary_sensor.Motion_Balkon
+
+# Flur:
+#  name: Flur
+ # entities:
+  #  - switch.Funk_Flur
+   # - sensor.Temperature_Flur
+    #- sensor.Humidity_Flur
+   # - binary_sensor.Motion_Flur
+   # - binary_sensor.Light_Flur
+Residence Radio:
+  name: Residence Radio
+  entities:
+  - input_select.radio_station
+  - input_select.chromecast_radio
+  - script.radio538
+  - input_number.volume_radio
+
+ISS:
+  name: ISS
+  entities:
+  - binary_sensor.ISS
+  - camera.ISS
+  - sensor.iss_next_rise

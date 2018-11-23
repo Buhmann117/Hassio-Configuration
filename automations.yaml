@@ -1,0 +1,557 @@
+# BAD
+  - id: "Light control ON Bad"
+    alias: "Light control ON Bad"
+    initial_state: 'on'
+    trigger:
+      platform: mqtt
+      topic: "homie/5ccf7ffa70ff/light/state"
+      payload: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: "homie/a020a6021250/funkB/dev_1"
+          payload: "on"
+  - id: "Light control OFF Bad"
+    alias: "Light control OFF Bad"
+    initial_state: 'on'
+    trigger:
+      platform: mqtt
+      topic: "homie/5ccf7ffa70ff/light/state"
+      payload: 'off'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: "homie/a020a6021250/funkB/dev_1"
+          payload: "off"
+      - service: media_player.turn_off
+        entity_id: media_player.Disco_Dusche
+      - service: switch.turn_off
+        entity_id: switch.Audio_Bad
+
+
+  - id: "Audio Bad ON"
+    alias: "Audio Bad ON"
+    initial_state: "on"
+    trigger:
+      platform: state
+      entity_id: media_player.Disco_Dusche
+      to: "playing"
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Audio_Bad
+  - id: "Audio Bad OFF"
+    alias: "Audio Bad OFF"
+    initial_state: "on"
+    trigger:
+      platform: state
+      entity_id: media_player.Disco_Dusche
+      to: "off"
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Audio_Bad
+
+
+  - id: "Disco Bad"
+    alias: "Disco Bad"
+    initial_state: 'off'
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.Humidity_Bad
+      # Optional
+      #value_template: '{{ state.attributes.battery }}'
+      # At least one of the following required
+      above: 40
+      #below: 25
+          # If given, will trigger when condition has been for X time.
+          #for:
+          #  hours: 1
+          #  minutes: 10
+          #  seconds: 5
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Audio_Bad
+      - delay: 00:00:05
+      - service: tts.google_say
+        entity_id: media_player.Disco_Dusche
+        data:
+          message: 'Disco Dusche läuft.'
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.kodi
+          media_content_id: "Skynet/Musik/02_-_Chemical_Brothers_-_Do_It_Again_(Edit)"
+          media_content_type: "directory"
+
+
+#  - alias: "Light control ON Schlafzimmer"
+#    trigger:
+#      platform: mqtt
+#      topic: "homie/a020a602125/light/state"
+#      payload: 'on'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          topic: "homie/a020a602125/funkS/dev_1"
+#          payload: "on"
+#  - alias: "Light control OFF Schlafzimmer"
+#    trigger:
+#      platform: mqtt
+#      topic: "homie/a020a602125/light/state"
+#      payload: 'off'
+#    action:
+#      - service: mqtt.publish
+#        data:
+#          topic: "homie/a020a6021250/funkS/dev_1"
+#          payload: "off"
+
+# CHAMBER
+  - id: "Motion control Chamber"
+    alias: "Motion control Chamber"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.Motion_Chamber
+      to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Funk_Chamber
+    #  - service: mqtt.publish
+    #    data:
+    #      topic: "homie/5ccf7f34095f/funkC/dev_1/set"
+    #      payload: "on"
+
+  - id: "Chamber switch off after motion"
+    alias: "Chamber switch off after motion"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.Motion_Chamber
+      to: 'off'
+      for:
+        seconds: 8
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Funk_Chamber
+  #    - service: mqtt.publish
+  #      data:
+  #        topic: "homie/5ccf7f34095f/funkC/dev_1/set"
+  #        payload: "off"
+
+  - id: "Light control ON Chamber"
+    alias: "Light control ON Chamber"
+    initial_state: 'on'
+    trigger:
+        - platform: state
+          entity_id: binary_sensor.Light_Chamber
+          to: 'on'
+    action:
+        - service: switch.turn_on
+          entity_id: switch.Funk_Chamber
+  - id: "Light control OFF Chamber"
+    alias: "Light control OFF Chamber"
+    initial_state: 'on'
+    trigger:
+        - platform: state
+          entity_id: binary_sensor.Light_Chamber
+          to: 'off'
+    action:
+        - service: switch.turn_off
+          entity_id: switch.Funk_Chamber
+
+# FLUR
+  - id: "Flur switch off after motion"
+    alias: "Flur switch off after motion"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.Motion_Flur1
+        to: 'off'
+        for:
+           seconds: 120
+           #minutes: 5
+      - platform: state
+        entity_id: binary_sensor.Motion_Flur2
+        to: 'off'
+        for:
+           seconds: 120
+           #minutes: 5
+    condition:
+      - condition: state
+        entity_id: binary_sensor.Motion_Flur1
+        state: 'off'
+        for:
+           seconds: 120
+           #minutes: 5
+      - condition: state
+        entity_id: binary_sensor.Motion_Flur2
+        state: 'off'
+        for:
+           seconds: 120
+           #minutes: 5
+    #  - condition: state
+    #    entity_id: switch.Funk_Flur
+    #    state: 'on'
+    action:
+    - service: switch.turn_off
+      entity_id: switch.Funk_Flur
+
+# POTT
+  - id: "Light control ON Pott"
+    alias: "Light control ON Pott"
+    trigger:
+      platform: state
+      entity_id: binary_sensor.Light_Pott
+      to: 'on'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: "homie/a020a6021250/funkP/dev_1/set"
+          payload: "on"
+  - id: "Light control OFF Pott"
+    alias: "Light control OFF Pott"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.Light_Pott
+        to: 'off'
+    action:
+      - service: mqtt.publish
+        data:
+          topic: "homie/a020a6021250/funkP/dev_1/set"
+          payload: "off"
+
+# WOHNZIMMER
+  - id: "Motion Alarm"
+    alias: "Motion Alarm"
+    initial_state: 'off'
+    trigger:
+      platform: state
+      entity_id: binary_sensor.Motion_Wohnzimmer
+      to: "on" # Optional
+    action:
+      - service: tts.google_say
+        entity_id: media_player.cortana
+        data:
+          message: 'Hab Dich!'
+
+  - id: "Cinema Mode"
+    alias: "Cinema Mode"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.cinema
+      to: 'on'
+    action:
+    - service: scene.turn_on
+      entity_id: scene.Movie
+    - delay: 00:00:03
+    - service: light.turn_on
+      data:
+        entity_id: light.Living_Room_Board
+        color_name: mediumblue #hotpink
+        brightness: 255
+
+  - id: "Koelle Mode"
+    alias: "Koelle Mode"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.koelle
+      to: 'on'
+    action:
+    - service: scene.turn_on
+      entity_id: scene.Movie
+    - delay: 00:00:03
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Board
+         color_name: red #hotpink
+         brightness: 255
+    - delay: 00:00:01
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_NewYork
+         color_name: floralwhite #hotpink
+         brightness: 255
+    - delay: 00:00:01
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Corner
+         color_name: red #hotpink
+         brightness: 255
+    - delay: 00:00:01
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Couch
+         color_name: floralwhite #hotpink
+         brightness: 255
+
+  - id: "Ambiente Mode ON"
+    alias: "Ambiente Mode ON"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.ambiente
+      to: 'on'
+    action:
+    - service: switch.turn_on
+      entity_id: switch.Schrankwand
+    - delay: 00:00:02
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Board
+         color_name: yellow #hotpink
+         brightness: 255
+    - delay: 00:00:02
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_NewYork
+         color_name: yellow #hotpink
+         brightness: 255
+    - delay: 00:00:02
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Corner
+         color_name: blue #hotpink
+         brightness: 255
+    - delay: 00:00:02
+    - service: light.turn_on
+      data:
+         entity_id: light.Living_Room_Couch
+         color_name: yellow #hotpink
+         brightness: 255
+  - id: "Ambiente Mode OFF"
+    alias: "Ambiente Mode OFF"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.ambiente
+      to: 'off'
+    action:
+    - service: switch.turn_off
+      entity_id: switch.Schrankwand
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+         entity_id: light.Living_Room_Board
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+         entity_id: light.Living_Room_NewYork
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+         entity_id: light.Living_Room_Corner
+    - delay: 00:00:02
+    - service: light.turn_off
+      data:
+         entity_id: light.Living_Room_Couch
+
+  - id: "Couchbeleuchtung ON"
+    alias: "Couchbeleuchtung ON"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.couchbeleuchtung
+      to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Funk_Hauptlicht
+      - delay: 00:00:03
+      - service: script.turn_on
+        entity_id: script.irlamp_on
+  - id: "Couchbeleuchtung OFF"
+    alias: "Couchbeleuchtung OFF"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.couchbeleuchtung
+      to: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Funk_Hauptlicht
+      - delay: 00:00:03
+      - service: script.turn_on
+        entity_id: script.irlamp_off
+
+  - id: "Entertainment ON"
+    alias: "Entertainment ON"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.entertainment
+      to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Audio_Wohnzimmer
+      - delay: 00:00:03
+      - service: script.turn_on
+        entity_id: script.television_power
+  - id: "Entertainment OFF"
+    alias: "Entertainment OFF"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.entertainment
+      to: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Audio_Wohnzimmer
+      - delay: 00:00:03
+      - service: script.turn_on
+        entity_id: script.television_power
+
+  - id: "Kodi ON"
+    alias: "Kodi ON"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.kodi
+      to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Funk_HDD
+  - id: "Kodi OFF"
+    alias: "Kodi OFF"
+    trigger:
+    - platform: state
+      entity_id: input_boolean.kodi
+      to: 'off'
+    action:
+      - service: media_player.turn_off
+        entity_id: media_player.kodi
+
+
+
+#Global
+  - id: "Adios"
+    alias: "Adios"
+    trigger:
+      platform: state
+      entity_id: device_tracker.84be52018da6
+      from: 'home'
+      to: 'not_home'
+    action:
+    - service: mqtt.publish
+      data:
+        topic: "homie/a020a6021250/funkS/dev_1/set"
+        payload: "off"
+    - delay: 00:00:05
+    - service: mqtt.publish
+      data:
+        topic: "homie/a020a6291815/funkA/dev_1/set"
+        payload: "off"
+    - delay: 00:00:05
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.wohnzimmer__thermostat_2
+        temperature: 4.5
+        operation_mode: Heat
+    - delay: 00:00:05
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.arbeitszimmer__thermostat_3
+        temperature: 4.5
+        operation_mode: Heat
+    - delay: 00:00:05
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.schlafzimmer_thermostat_1
+        temperature: 4.5
+        operation_mode: Heat
+
+  - id: "Night Mode"
+    alias: "Night Mode"
+    trigger:
+      platform: time
+      # When 'at' is used, you cannot also match on hour, minute, seconds.
+      # Military time format.
+      at: '00:00:00'
+    action:
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.wohnzimmer__thermostat_2
+        temperature: 4.5
+        operation_mode: Heat
+    - delay: 00:00:05
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.arbeitszimmer__thermostat_3
+        temperature: 4.5
+        operation_mode: Heat
+    - delay: 00:00:05
+    - service: climate.set_temperature
+      data:
+        entity_id: climate.schlafzimmer_thermostat_1
+        temperature: 4.5
+        operation_mode: Heat
+
+# BALKON
+  - id: "Motion control Balkon"
+    alias: "Motion control Balkon"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.Motion_Balkon
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: binary_sensor.Light_Balkon
+        state: 'off'
+    action:
+    - service: light.turn_on
+      data:
+        entity_id: light.Yeelight_Balkon
+        #color_name: mediumblue #hotpink
+        brightness: 255
+
+  - id: "Balkon switch off after motion"
+    alias: "Balkon switch off after motion"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.Motion_Balkon
+        to: 'off'
+        for:
+           seconds: 10
+           #minutes: 5
+    action:
+    - service: light.turn_off
+      data:
+        entity_id: light.Yeelight_Balkon
+
+  - id: "Set Radio Volume"
+    alias: "Set Radio Volume"
+    trigger:
+      platform: state
+      entity_id: input_number.volume_radio
+    action:
+        service: media_player.volume_set
+        data_template:
+          entity_id: >
+            {% if is_state("input_select.chromecast_radio", "TV_Wohnzimmer") %} media_player.media_wohnzimmer
+            {% elif is_state("input_select.chromecast_radio", "Sound_Wohnzimmer") %} media_player.cortana
+            {% elif is_state("input_select.chromecast_radio", "Kueche") %} media_player.MoneyPenny
+            {% elif is_state("input_select.chromecast_radio", "Bad") %} media_player.Disco_Dusche
+            {% elif is_state("input_select.chromecast_radio", "Everywhere") %} media_player.media_wohnzimmer, media_player.cortana, media_player.MoneyPenny, media_player.Disco_Dusche
+            {% endif %}
+          volume_level: '{{  states.input_number.volume_radio.state  }}'
+
+#test snippets
+  #- id: "Flur switch off"
+  #  alias: "Flur switch off"
+  #  trigger:
+  #    - platform: state
+  #      entity_id: binary_sensor.Light_Flur
+  #      to: 'on'
+  #      for:
+           #seconds: 12
+  #         minutes: 2
+  #  action:
+  #    - service: switch.turn_off
+  #      entity_id: switch.Funk_Flur
+
+  #  - id: "Motion control Flur"
+  #    alias: "Motion control Flur"
+  #    trigger:
+  #      - platform: state
+  #        entity_id: binary_sensor.Motion_Flur1
+  #        to: 'on'
+        #  for:
+        #    seconds: 1
+  #      - platform: state
+  #        entity_id: binary_sensor.Motion_Flur2
+  #        to: 'on'
+        #  for:
+        #    seconds: 1
+  #    condition:
+  #      - condition: state
+  #        entity_id: binary_sensor.Light_Flur
+  #        state: 'off'
+  #    action:
+  #    - service: switch.turn_on
+  #      entity_id: switch.Funk_Flur
