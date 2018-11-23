@@ -55,8 +55,7 @@ device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.1.138 #changed
     home_interval: 10
-    consider_home: 180
-
+    scan_options: " -sP --host-timeout 10s"
 # Enables support for tracking state changes over time
 history:
   exclude:
@@ -187,11 +186,6 @@ sensor:
       - ping
       - download
       - upload
-  - platform: fastdotcom
-    minute:
-      - 0
-      - 30
-    manual: True
   - platform: time_date
     display_options:
       - 'time'
