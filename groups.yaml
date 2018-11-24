@@ -152,6 +152,7 @@ Lab:
         - binary_sensor.Motion_TestDevice
         - switch.Test_Switch
         - remote.Wohnzimmer_Remote
+        - camera.Pi_Cam
 Yeelight:
     - light.Living_Room_Couch
     - light.Living_Room_NewYork
