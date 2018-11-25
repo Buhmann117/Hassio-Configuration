@@ -407,6 +407,53 @@
       - service: media_player.turn_off
         entity_id: media_player.kodi
 
+  - id: Wohnzimmer_heater_weekend
+    alias: 'Wohnzimmer_heater (weekend)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Wohnzimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Wohnzimmer_heater_time.state  }}"
+    action:
+      - service: tts.google_say
+        entity_id: media_player.Cortana
+        data_template:
+          message: "Heizung an."
+
+  - id: Wohnzimmer_heater_weekday
+    alias: 'Wohnzimmer_heater (weekday)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Wohnzimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Wohnzimmer_heater_time.state  }}"
+    action:
+      - service: tts.google_say
+        entity_id: media_player.Cortana
+        data_template:
+          message: "Heizung an."
+
 #Schlafzimmer
 
   - id: alarm_1_weekday

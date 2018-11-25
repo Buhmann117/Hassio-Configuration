@@ -211,6 +211,12 @@ sensor:
             friendly_name: 'Offset Time'
             value_template: >-
                 {{ '%0.02d:%0.02d' | format( ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset'))| int)/60)| int),(((((((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)) - ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)| int))*100) | int)*60/100) | round) ) }}
+  - platform: template
+    sensors:
+       wohnzimmer_heater_time:
+            friendly_name: 'Heater Time'
+            value_template: >-
+              {{ "%0.02d:%0.02d" | format(states("input_number.Wohnzimmer_heater_hour") | int, states("input_number.Wohnzimmer_heater_minutes") | int) }}
 
 
 # Text to speech
@@ -741,6 +747,14 @@ input_boolean:
       name: Weekends
       initial: off
       icon: mdi:calendar
+  wohnzimmer_heater_weekday:
+      name: Weekdays
+      initial: off
+      icon: mdi:calendar
+  wohnzimmer_heater_weekend:
+      name: Weekends
+      initial: off
+      icon: mdi:calendar
 
 
 light:
@@ -847,6 +861,21 @@ input_number:
     min: 0
     max: 60
     step: 15
+  wohnzimmer_heater_hour:
+    name: Hours
+    icon: mdi:timer
+    initial: 7
+    min: 0
+    max: 23
+    step: 1
+  wohnzimmer_heater_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 0
+    min: 0
+    max: 59
+    step: 1
+
 
 
 input_select:

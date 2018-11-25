@@ -42,7 +42,7 @@ Wohnzimmer:
       - binary_sensor.Light_Wohnzimmer
       - binary_sensor.Motion_Wohnzimmer
       - group.Wohnzimmer_Light
-      - climate.wohnzimmer__thermostat_2
+      - group.Wohnzimmer_Heater
       - media_player.media_wohnzimmer
       - media_player.Kodi
       - media_player.cortana
@@ -299,6 +299,16 @@ Alarm_Schlafzimmer:
   - input_number.alarm_1_offset
   - input_boolean.alarm_1_weekday
   - input_boolean.alarm_1_weekend
+
+Wohnzimmer_Heater:
+  name: Heater Timer
+  entities:
+  - climate.wohnzimmer__thermostat_2
+  - sensor.Wohnzimmer_heater_time
+  - input_number.Wohnzimmer_heater_hour
+  - input_number.Wohnzimmer_heater_minutes
+  - input_boolean.Wohnzimmer_heater_weekday
+  - input_boolean.Wohnzimmer_heater_weekend
 
 ISS:
   name: ISS
