@@ -242,6 +242,7 @@ Schlafzimmer:
     #- binary_sensor.Motion_Schlafzimmer
     - binary_sensor.Sound_Schlafzimmer
     - climate.schlafzimmer_thermostat_1
+    - group.Alarm_Schlafzimmer
 Pott:
     - switch.Funk_Pott
     - binary_sensor.Light_Pott
@@ -287,6 +288,17 @@ Residence Radio:
   - input_select.chromecast_radio
   - script.radio538
   - input_number.volume_radio
+
+Alarm_Schlafzimmer:
+  name: Wake Me Up
+  entities:
+  - sensor.alarm_1_time
+  - sensor.alarm_1_time_minus_offset
+  - input_number.alarm_1_hour
+  - input_number.alarm_1_minutes
+  - input_number.alarm_1_offset
+  - input_boolean.alarm_1_weekday
+  - input_boolean.alarm_1_weekend
 
 ISS:
   name: ISS

@@ -407,7 +407,60 @@
       - service: media_player.turn_off
         entity_id: media_player.kodi
 
+#Schlafzimmer
 
+  - id: alarm_1_weekday
+    alias: 'Wake me up (weekday)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.alarm_1_weekday
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}"
+    action:
+  #- data:
+  #    message: Alarm ! Current time is {{ states.sensor.time.state }} and alarm is set to {{ states.sensor.alarm_1_time.state }} with an offset of {{ states.input_number.alarm_1_offset.state }} set to {{ states.sensor.alarm_1_time_minus_offset.state }} Weekdays ({{ states.input_boolean.alarm_1_weekday.state }} ) and Weekends ({{ states.input_boolean.alarm_1_weekend.state }} ) test {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+  #  service: notify.rocketchat
+      - service: tts.google_say
+        entity_id: media_player.Cortana
+        data_template:
+          message: "Alarm ! Die Zeit ist {{ states('sensor.time') }} und Alarm ist eingestellt auf {{ states('sensor.alarm_1_time') }} mit dem Offset {{ states('input_number.alarm_1_offset') }} eingestellt auf {{ states('sensor.alarm_1_time_minus_offset') }} Weekdays ({{ states('input_boolean.alarm_1_weekday') }} ) and Weekends ({{ states('input_boolean.alarm_1_weekend') }} ) test {{ '%0.02d:%0.02d' | format(states('input_number.alarm_1_hour') | int, states('input_number.alarm_1_minutes') | int) }}."
+
+  - id: alarm_1_weekend
+    alias: 'Wake me up (weekend)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.alarm_1_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}"
+    action:
+  #- data:
+  #    message: Alarm ! Current time is {{ states.sensor.time.state }} and alarm is set to {{ states.sensor.alarm_1_time.state }} with an offset of {{ states.input_number.alarm_1_offset.state }} set to {{ states.sensor.alarm_1_time_minus_offset.state }} Weekdays ({{ states.input_boolean.alarm_1_weekday.state }} ) and Weekends ({{ states.input_boolean.alarm_1_weekend.state }} ) test {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+  #  service: notify.rocketchat
+      - service: tts.google_say
+        entity_id: media_player.Cortana
+        data_template:
+          message: "Alarm ! Die Zeit ist {{ states('sensor.time') }} und Alarm ist eingestellt auf {{ states('sensor.alarm_1_time') }} mit dem Offset {{ states('input_number.alarm_1_offset') }} eingestellt auf {{ states('sensor.alarm_1_time_minus_offset') }} Weekdays ({{ states('input_boolean.alarm_1_weekday') }} ) and Weekends ({{ states('input_boolean.alarm_1_weekend') }} ) test {{ '%0.02d:%0.02d' | format(states('input_number.alarm_1_hour') | int, states('input_number.alarm_1_minutes') | int) }}."
 
 #Global
   - id: "Adios"
@@ -520,6 +573,10 @@
             {% elif is_state("input_select.chromecast_radio", "Everywhere") %} media_player.media_wohnzimmer, media_player.cortana, media_player.MoneyPenny, media_player.Disco_Dusche
             {% endif %}
           volume_level: '{{  states.input_number.volume_radio.state  }}'
+
+
+
+
 
 #test snippets
   #- id: "Flur switch off"

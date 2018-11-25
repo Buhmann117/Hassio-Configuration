@@ -195,6 +195,22 @@ sensor:
       - 'time_utc'
       - 'beat'
   - platform: cpuspeed
+  - platform: time_date
+    friendly_name: current_time_for_alarm_1
+    display_options:
+        - 'time'
+  - platform: template
+    sensors:
+       alarm_1_time:
+            friendly_name: 'Alarm Time'
+            value_template: >-
+              {{ "%0.02d:%0.02d" | format(states("input_number.alarm_1_hour") | int, states("input_number.alarm_1_minutes") | int) }}
+  - platform: template
+    sensors:
+       alarm_1_time_minus_offset:
+            friendly_name: 'Offset Time'
+            value_template: >-
+                {{ '%0.02d:%0.02d' | format( ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset'))| int)/60)| int),(((((((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)) - ((((states('input_number.alarm_1_hour') | int)*60 + (states('input_number.alarm_1_minutes') | int) - (states('input_number.alarm_1_offset')) | int)/60)| int))*100) | int)*60/100) | round) ) }}
 
 
 # Text to speech
@@ -717,6 +733,14 @@ input_boolean:
       name: "Kodi"
       initial: off
       icon: mdi:kodi
+  alarm_1_weekday:
+      name: Weekdays
+      initial: on
+      icon: mdi:calendar
+  alarm_1_weekend:
+      name: Weekends
+      initial: off
+      icon: mdi:calendar
 
 
 light:
@@ -802,6 +826,28 @@ input_number:
     min: 0
     max: 1
     step: 0.05
+  alarm_1_hour:
+    name: Hours
+    icon: mdi:timer
+    initial: 7
+    min: 0
+    max: 23
+    step: 1
+  alarm_1_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 0
+    min: 0
+    max: 59
+    step: 1
+  alarm_1_offset:
+    name: Transition
+    icon: mdi:blur-linear
+    initial: 15
+    min: 0
+    max: 60
+    step: 15
+
 
 input_select:
   radio_station:
