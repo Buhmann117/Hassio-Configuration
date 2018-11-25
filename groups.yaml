@@ -307,6 +307,7 @@ Wohnzimmer_Heater:
   - sensor.Wohnzimmer_heater_time
   - input_number.Wohnzimmer_heater_hour
   - input_number.Wohnzimmer_heater_minutes
+  - input_number.Wohnzimmer_heater_temp
   - input_boolean.Wohnzimmer_heater_weekday
   - input_boolean.Wohnzimmer_heater_weekend
 

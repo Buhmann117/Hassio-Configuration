@@ -428,6 +428,11 @@
         entity_id: media_player.Cortana
         data_template:
           message: "Heizung an."
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.wohnzimmer__thermostat_2
+          temperature: "{{ states.input_number.Wohnzimmer_heater_temp.state }}"
+          operation_mode: Heat
 
   - id: Wohnzimmer_heater_weekday
     alias: 'Wohnzimmer_heater (weekday)'
