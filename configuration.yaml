@@ -806,51 +806,61 @@ light:
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: strip1
       192.168.1.108: #34:CE:00:87:B7:FA # changed
         name: Living Room NewYork
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: strip1
       192.168.1.116: #changed
         name: Yeelight Schlafzimmer
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.143: #changed
         name: Kueche1
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.144: #changed
         name: Kueche2
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.146: #changed
         name: Flur Back
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.148: #changed
         name: Flur Front
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.164: #34:CE:00:87:E6:FF #changed
         name: Living Room Board
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: strip1
       192.168.1.31: #changed
         name: Living Room Corner
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
       192.168.1.150: #changed
         name: Yeelight Balkon
         transition: 1000
         use_music_mode: True #(defaults to False)
         save_on_change: False #(defaults to True)
+        model: color1
 
 remote:
   - platform: xiaomi_miio

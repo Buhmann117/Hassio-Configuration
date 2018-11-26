@@ -608,6 +608,121 @@
         entity_id: media_player.Cortana
         data_template:
           message: "Alarm ! Die Zeit ist {{ states('sensor.time') }} und Alarm ist eingestellt auf {{ states('sensor.alarm_1_time') }} mit dem Offset {{ states('input_number.alarm_1_offset') }} eingestellt auf {{ states('sensor.alarm_1_time_minus_offset') }} Weekdays ({{ states('input_boolean.alarm_1_weekday') }} ) and Weekends ({{ states('input_boolean.alarm_1_weekend') }} ) test {{ '%0.02d:%0.02d' | format(states('input_number.alarm_1_hour') | int, states('input_number.alarm_1_minutes') | int) }}."
+      # 18 x 1min:
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          #transition: 2000 # time in ms
+          brightness: 5
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 10
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 15
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 20
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 30
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 40
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 50
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 60
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 70
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 80
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 90
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 100
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 110
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 120
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 140
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 160
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 180
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 200
+      - delay: 00:01:00
+      - service: light.turn_on
+        data:
+          entity_id: light.Yeelight_Schlafzimmer
+          rgb_color: [255,91,36]
+          brightness: 220
   - id: alarm_1_weekend
     alias: 'Wake me up (weekend)'
     trigger:
