@@ -273,6 +273,64 @@
       #  data_template:
       #    message: "Heizung an."
 
+#GAESTEZIMMER
+
+  - id: Gaestezimmer_heater_weekend
+    alias: 'Gaestezimmer_heater (weekend)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Gaestezimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Gaestezimmer_heater_time.state  }}"
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.patrick_thermostat_4
+          temperature: "{{ states.input_number.Gaestezimmer_heater_temp.state }}"
+          operation_mode: Heat
+      #- service: tts.google_say
+      #  entity_id: media_player.Cortana
+      #  data_template:
+      #    message: "Heizung an."
+  - id: Gaestezimmer_heater_weekday
+    alias: 'Gaestezimmer_heater (weekday)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Gaestezimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Gaestezimmer_heater_time.state  }}"
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.patrick_thermostat_4
+          temperature: "{{ states.input_number.Gaestezimmer_heater_temp.state }}"
+          operation_mode: Heat
+      #- service: tts.google_say
+      #  entity_id: media_player.Cortana
+      #  data_template:
+      #    message: "Heizung an."
+
 
 # WOHNZIMMER
   - id: "Motion Alarm"

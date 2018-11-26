@@ -103,7 +103,7 @@ Patricks Room:
     - sensor.Humidity_Patricks_Room
     - binary_sensor.Light_Patricks_Room
     - switch.Funk_Patricks_Room
-    - climate.patrick_thermostat_4
+    - group.Gaestezimmer_Heater
 
 
 Licht:
@@ -234,14 +234,14 @@ Arbeitszimmer:
     - switch.Power_Steckerleiste
     #- binary_sensor.Motion_Arbeitszimmer
     - binary_sensor.Sound_Arbeitszimmer
-    - climate.arbeitszimmer__thermostat_3
+    - group.Arbeitszimmer_Heater
 Schlafzimmer:
     - switch.Funk_Schlafzimmer
     - light.Yeelight_Schlafzimmer
     - binary_sensor.Light_Schlafzimmer
     #- binary_sensor.Motion_Schlafzimmer
     - binary_sensor.Sound_Schlafzimmer
-    - climate.schlafzimmer_thermostat_1
+    - group.Schlafzimmer_Heater
     - group.Alarm_Schlafzimmer
 Pott:
     - switch.Funk_Pott
@@ -330,6 +330,16 @@ Arbeitszimmer_Heater:
   - input_number.Arbeitszimmer_heater_temp
   - input_boolean.Arbeitszimmer_heater_weekday
   - input_boolean.Arbeitszimmer_heater_weekend
+Gaestezimmer_Heater:
+  name: Heater Setup
+  entities:
+  - climate.patrick_thermostat_4
+  - sensor.Gaestezimmer_heater_time
+  - input_number.Gaestezimmer_heater_hour
+  - input_number.Gaestezimmer_heater_minutes
+  - input_number.Gaestezimmer_heater_temp
+  - input_boolean.Gaestezimmer_heater_weekday
+  - input_boolean.Gaestezimmer_heater_weekend
 
 
 
