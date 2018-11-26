@@ -320,6 +320,16 @@ Schlafzimmer_Heater:
   - input_number.Schlafzimmer_heater_temp
   - input_boolean.Schlafzimmer_heater_weekday
   - input_boolean.Schlafzimmer_heater_weekend
+Arbeitszimmer_Heater:
+  name: Heater Setup
+  entities:
+  - climate.arbeitszimmer__thermostat_3
+  - sensor.Arbeitszimmer_heater_time
+  - input_number.Arbeitszimmer_heater_hour
+  - input_number.Arbeitszimmer_heater_minutes
+  - input_number.Arbeitszimmer_heater_temp
+  - input_boolean.Arbeitszimmer_heater_weekday
+  - input_boolean.Arbeitszimmer_heater_weekend
 
 
 

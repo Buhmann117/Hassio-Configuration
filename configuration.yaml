@@ -223,6 +223,12 @@ sensor:
             friendly_name: 'Heater Time'
             value_template: >-
               {{ "%0.02d:%0.02d" | format(states("input_number.Schlafzimmer_heater_hour") | int, states("input_number.Schlafzimmer_heater_minutes") | int) }}
+  - platform: template
+    sensors:
+       arbeitszimmer_heater_time:
+            friendly_name: 'Heater Time'
+            value_template: >-
+              {{ "%0.02d:%0.02d" | format(states("input_number.Arbeitszimmer_heater_hour") | int, states("input_number.Arbeitszimmer_heater_minutes") | int) }}
 
 
 # Text to speech
@@ -769,6 +775,15 @@ input_boolean:
       name: Weekends
       initial: off
       icon: mdi:calendar
+  arbeitszimmer_heater_weekday:
+      name: Weekdays
+      initial: off
+      icon: mdi:calendar
+  arbeitszimmer_heater_weekend:
+      name: Weekends
+      initial: off
+      icon: mdi:calendar
+
 
 light:
   - platform: yeelight
@@ -910,6 +925,27 @@ input_number:
     max: 59
     step: 1
   schlafzimmer_heater_temp:
+    name: Temperature
+    icon: mdi:temperature-celsius
+    initial: 0
+    min: 0
+    max: 34
+    step: 0.5
+  arbeitszimmer_heater_hour:
+    name: Hours
+    icon: mdi:timer
+    initial: 7
+    min: 0
+    max: 23
+    step: 1
+  arbeitszimmer_heater_minutes:
+    name: Minutes
+    icon: mdi:timer
+    initial: 0
+    min: 0
+    max: 59
+    step: 1
+  arbeitszimmer_heater_temp:
     name: Temperature
     icon: mdi:temperature-celsius
     initial: 0

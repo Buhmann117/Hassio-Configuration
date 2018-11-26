@@ -215,6 +215,65 @@
           topic: "homie/a020a6021250/funkP/dev_1/set"
           payload: "off"
 
+# Arbeitszimmer
+
+  - id: Arbeitszimmer_heater_weekend
+    alias: 'Arbeitszimmer_heater (weekend)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Arbeitszimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - sat
+          - sun
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Arbeitszimmer_heater_time.state  }}"
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.Arbeitszimmer_thermostat_1
+          temperature: "{{ states.input_number.Arbeitszimmer_heater_temp.state }}"
+          operation_mode: Heat
+      #- service: tts.google_say
+      #  entity_id: media_player.Cortana
+      #  data_template:
+      #    message: "Heizung an."
+  - id: Arbeitszimmer_heater_weekday
+    alias: 'Arbeitszimmer_heater (weekday)'
+    trigger:
+      - platform: time
+        minutes: '/1'
+        seconds: 00
+    condition:
+      - condition: state
+        entity_id: input_boolean.Arbeitszimmer_heater_weekend
+        state: 'on'
+      - condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+      - condition: template
+        value_template: "{{ states.sensor.time.state == states.sensor.Arbeitszimmer_heater_time.state  }}"
+    action:
+      - service: climate.set_temperature
+        data_template:
+          entity_id: climate.arbeitszimmer__thermostat_3
+          temperature: "{{ states.input_number.Arbeitszimmer_heater_temp.state }}"
+          operation_mode: Heat
+      #- service: tts.google_say
+      #  entity_id: media_player.Cortana
+      #  data_template:
+      #    message: "Heizung an."
+
+
 # WOHNZIMMER
   - id: "Motion Alarm"
     alias: "Motion Alarm"
