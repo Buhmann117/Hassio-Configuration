@@ -301,7 +301,7 @@ Alarm_Schlafzimmer:
   - input_boolean.alarm_1_weekend
 
 Wohnzimmer_Heater:
-  name: Heater Timer
+  name: Heater Setup
   entities:
   - climate.wohnzimmer__thermostat_2
   - sensor.Wohnzimmer_heater_time
