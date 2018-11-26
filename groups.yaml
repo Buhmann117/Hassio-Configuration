@@ -310,6 +310,18 @@ Wohnzimmer_Heater:
   - input_number.Wohnzimmer_heater_temp
   - input_boolean.Wohnzimmer_heater_weekday
   - input_boolean.Wohnzimmer_heater_weekend
+Schlafzimmer_Heater:
+  name: Heater Setup
+  entities:
+  - climate.schlafzimmer_thermostat_1
+  - sensor.Schlafzimmer_heater_time
+  - input_number.Schlafzimmer_heater_hour
+  - input_number.Schlafzimmer_heater_minutes
+  - input_number.Schlafzimmer_heater_temp
+  - input_boolean.Schlafzimmer_heater_weekday
+  - input_boolean.Schlafzimmer_heater_weekend
+
+
 
 ISS:
   name: ISS
