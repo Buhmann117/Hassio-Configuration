@@ -604,10 +604,10 @@
       - condition: template
         value_template: "{{ states.sensor.time.state == states.sensor.alarm_1_time_minus_offset.state  }}"
     action:
-      - service: tts.google_say
-        entity_id: media_player.Cortana
-        data_template:
-          message: "Alarm ! Die Zeit ist {{ states('sensor.time') }} und Alarm ist eingestellt auf {{ states('sensor.alarm_1_time') }} mit dem Offset {{ states('input_number.alarm_1_offset') }} eingestellt auf {{ states('sensor.alarm_1_time_minus_offset') }} Weekdays ({{ states('input_boolean.alarm_1_weekday') }} ) and Weekends ({{ states('input_boolean.alarm_1_weekend') }} ) test {{ '%0.02d:%0.02d' | format(states('input_number.alarm_1_hour') | int, states('input_number.alarm_1_minutes') | int) }}."
+      #- service: tts.google_say
+      #  entity_id: media_player.Cortana
+      #  data_template:
+      #    message: "Alarm ! Die Zeit ist {{ states('sensor.time') }} und Alarm ist eingestellt auf {{ states('sensor.alarm_1_time') }} mit dem Offset {{ states('input_number.alarm_1_offset') }} eingestellt auf {{ states('sensor.alarm_1_time_minus_offset') }} Weekdays ({{ states('input_boolean.alarm_1_weekday') }} ) and Weekends ({{ states('input_boolean.alarm_1_weekend') }} ) test {{ '%0.02d:%0.02d' | format(states('input_number.alarm_1_hour') | int, states('input_number.alarm_1_minutes') | int) }}."
       # 18 x 1min:
       - service: light.turn_on
         data:

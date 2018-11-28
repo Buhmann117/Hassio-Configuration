@@ -599,14 +599,32 @@ switch 1:
      retain: true
 
 switch 2:
-    platform: mqtt
-    name: "Funk Kueche"
-    state_topic: "homie/5ccf7f34095f/funkK/dev_1"
-    command_topic: "homie/5ccf7f34095f/funkK/dev_1/set"
-    payload_on: "on"
-    payload_off: "off"
-    qos: 0
-    retain: true
+  -  platform: mqtt
+     name: "Funk Kueche"
+     state_topic: "homie/5ccf7f34095f/funkK/dev_1"
+     command_topic: "homie/5ccf7f34095f/funkK/dev_1/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
+  -  platform: mqtt
+     name: "Kaffee Start Stop"
+     icon: mdi:coffee
+     state_topic: "homie/600194225ac2/motor/dev_1"
+     command_topic: "homie/600194225ac2/motor/dev_1/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
+  -  platform: mqtt
+     name: "Kaffee Mahlen Aus"
+     icon: mdi:coffee
+     state_topic: "homie/600194225ac2/motor/dev_2"
+     command_topic: "homie/600194225ac2/motor/dev_2/set"
+     payload_on: "on"
+     payload_off: "off"
+     qos: 0
+     retain: true
 
 switch 3:
     platform: mqtt

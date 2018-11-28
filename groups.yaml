@@ -31,6 +31,7 @@ Kueche:
       - binary_sensor.Sound_Kueche
       - group.Kueche_Light
       - media_player.MoneyPenny
+      - group.Kaffeemaschine
 
 Wohnzimmer:
     view: yes
@@ -341,7 +342,11 @@ Gaestezimmer_Heater:
   - input_boolean.Gaestezimmer_heater_weekday
   - input_boolean.Gaestezimmer_heater_weekend
 
-
+Kaffeemaschine:
+  name: Kaffeemaschine
+  entities:
+    - switch.Kaffee_Start_Stop
+    - switch.Kaffee_Mahlen_Aus
 
 ISS:
   name: ISS
