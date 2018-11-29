@@ -304,6 +304,7 @@ Alarm_Schlafzimmer:
 
 Wohnzimmer_Heater:
   name: Heater Setup
+  icon: mdi:thermostat-box
   entities:
   - climate.wohnzimmer__thermostat_2
   - sensor.Wohnzimmer_heater_time
@@ -314,6 +315,7 @@ Wohnzimmer_Heater:
   - input_boolean.Wohnzimmer_heater_weekend
 Schlafzimmer_Heater:
   name: Heater Setup
+  icon: mdi:thermostat-box
   entities:
   - climate.schlafzimmer_thermostat_1
   - sensor.Schlafzimmer_heater_time
@@ -324,6 +326,7 @@ Schlafzimmer_Heater:
   - input_boolean.Schlafzimmer_heater_weekend
 Arbeitszimmer_Heater:
   name: Heater Setup
+  icon: mdi:thermostat-box
   entities:
   - climate.arbeitszimmer__thermostat_3
   - sensor.Arbeitszimmer_heater_time
@@ -334,6 +337,7 @@ Arbeitszimmer_Heater:
   - input_boolean.Arbeitszimmer_heater_weekend
 Gaestezimmer_Heater:
   name: Heater Setup
+  icon: mdi:thermostat-box
   entities:
   - climate.patrick_thermostat_4
   - sensor.Gaestezimmer_heater_time
@@ -345,11 +349,13 @@ Gaestezimmer_Heater:
 
 Kaffeemaschine:
   name: Kaffeemaschine
+  icon: mdi:coffee
   entities:
     - switch.Kaffee_Start_Stop
     - switch.Kaffee_Mahlen_Aus
 Heater:
   name: Durchlauferhitzer
+  icon: mdi:water-pump
   entities:
     - switch.Heater_Hot
     - switch.Heater_Cold

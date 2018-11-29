@@ -638,7 +638,7 @@ switch 3:
     retain: true
   - platform: mqtt
     name: "Heater Hot"
-    icon: mdi:coffee
+    icon: mdi:fire
     state_topic: "homie/5ccf7ffa6af1/motor/dev_1"
     command_topic: "homie/5ccf7ffa6af1/motor/dev_1/set"
     payload_on: "on"
@@ -647,7 +647,7 @@ switch 3:
     retain: true
   - platform: mqtt
     name: "Heater Cold"
-    icon: mdi:coffee
+    icon: mdi:snowflake
     state_topic: "homie/5ccf7ffa6af1/motor/dev_2"
     command_topic: "homie/5ccf7ffa6af1/motor/dev_2/set"
     payload_on: "on"
@@ -784,7 +784,7 @@ input_boolean:
   entertainment:
       name: "Entertainment"
       initial: off
-      icon: mdi:television
+      icon: mdi:theater
   ambiente:
       name: "Ambiente"
       initial: off
