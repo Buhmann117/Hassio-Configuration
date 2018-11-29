@@ -627,11 +627,29 @@ switch 2:
      retain: true
 
 switch 3:
-    platform: mqtt
+  - platform: mqtt
     name: "Audio Bad"
     icon: mdi:speaker
     state_topic: "homie/5ccf7f34095f/funkK/dev_2"
     command_topic: "homie/5ccf7f34095f/funkK/dev_2/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+  - platform: mqtt
+    name: "Heater Hot"
+    icon: mdi:coffee
+    state_topic: "homie/5ccf7ffa6af1/motor/dev_1"
+    command_topic: "homie/5ccf7ffa6af1/motor/dev_1/set"
+    payload_on: "on"
+    payload_off: "off"
+    qos: 0
+    retain: true
+  - platform: mqtt
+    name: "Heater Cold"
+    icon: mdi:coffee
+    state_topic: "homie/5ccf7ffa6af1/motor/dev_2"
+    command_topic: "homie/5ccf7ffa6af1/motor/dev_2/set"
     payload_on: "on"
     payload_off: "off"
     qos: 0

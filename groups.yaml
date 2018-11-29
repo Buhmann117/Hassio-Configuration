@@ -252,6 +252,7 @@ Bad:
     - binary_sensor.Light_Bad
     - switch.Audio_Bad
     - media_player.Disco_Dusche
+    - group.Heater
 Chamber:
     - switch.Funk_Chamber
     - binary_sensor.Light_Chamber
@@ -347,6 +348,12 @@ Kaffeemaschine:
   entities:
     - switch.Kaffee_Start_Stop
     - switch.Kaffee_Mahlen_Aus
+Heater:
+  name: Durchlauferhitzer
+  entities:
+    - switch.Heater_Hot
+    - switch.Heater_Cold
+
 
 ISS:
   name: ISS
