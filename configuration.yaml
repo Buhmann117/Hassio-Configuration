@@ -60,10 +60,10 @@ asuswrt:
   port: 23 # test
 
 device_tracker:
-  - platform: nmap_tracker
-    hosts: 192.168.1.138 #changed
-    home_interval: 10
-    scan_options: " -sP --host-timeout 10s"
+#  - platform: nmap_tracker
+#    hosts: 192.168.1.138 #changed
+#    home_interval: 10
+#    scan_options: " -sP --host-timeout 10s"
   - platform: asuswrt
     new_device_defaults:
       track_new_devices: false
