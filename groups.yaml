@@ -9,6 +9,7 @@ default_view:
       - sensor.time
       - sensor.date
       - sensor.cpuspeed
+      - sensor.asuswrt_download
       - group.Wetter
       - group.Internet
       - group.Residence_Radio
@@ -169,6 +170,7 @@ Yeelight:
 Funk:
     - switch.Funk_Hauptlicht
     - switch.Tischbeleuchtung
+    - switch.Audio_Wohnzimmer
     - switch.Funk_HDD
     - switch.Funk_Kueche
     - switch.Funk_Arbeitszimmer

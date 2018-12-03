@@ -51,11 +51,23 @@ logger:
   logs:
     homeassistant.components.mqtt: debug
 
+# known to be broken, fix expected
+asuswrt:
+  host: 192.168.1.1
+  username: admin
+  password: !secret asuswrt_password
+  protocol: telnet
+  port: 23 # test
+
 device_tracker:
   - platform: nmap_tracker
     hosts: 192.168.1.138 #changed
     home_interval: 10
     scan_options: " -sP --host-timeout 10s"
+  - platform: asuswrt
+    new_device_defaults:
+      track_new_devices: false
+      hide_if_away: true
 # Enables support for tracking state changes over time
 history:
   exclude:
@@ -235,7 +247,6 @@ sensor:
             friendly_name: 'Heater Time'
             value_template: >-
               {{ "%0.02d:%0.02d" | format(states("input_number.Gaestezimmer_heater_hour") | int, states("input_number.Gaestezimmer_heater_minutes") | int) }}
-
 
 # Text to speech
 tts:
@@ -778,7 +789,7 @@ input_boolean:
       name: "FakeHeater"
       initial: off
   couchbeleuchtung:
-      name: "Couchbeleuchtung"
+      name: "Couch"
       initial: off
       icon: mdi:lightbulb
   entertainment:
