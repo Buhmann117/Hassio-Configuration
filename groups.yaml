@@ -13,6 +13,7 @@ default_view:
       - group.Wetter
       - group.Internet
       - group.Residence_Radio
+      - automation.Adios
       - group.ISS
       - script.restart_home_assistant
 
@@ -54,6 +55,8 @@ Wohnzimmer:
       - input_boolean.kodi
       - script.irlamp_lamp
       - script.television_power
+      - automation.Motion_Alarm
+
 
 Bad & Pott:
     view: yes
@@ -64,6 +67,7 @@ Bad & Pott:
       - sensor.Humidity_Bad
       - sensor.Humidity_Pott
       #- binary_sensor.Motion_Pott
+      - group.Heater
       - group.Bad
       - group.Pott
 
@@ -95,6 +99,8 @@ Flur:
     - binary_sensor.Motion_FlurBack
     - binary_sensor.Motion_FlurFront
     - group.Flur_Light
+    - automation.flur_switch_off_after_motion
+
 
 Patricks Room:
   name: Patricks Room
@@ -124,7 +130,7 @@ Balkon:
     #- binary_sensor.Motion_Balkon
     - group.Balkon_Light
 
-Automation:
+Debug:
       view: yes
       #icon: mdi:
       entities:
@@ -143,11 +149,9 @@ Automation:
         #- automation.light_control_on_chamber
         #- automation.light_control_off_chamber
         #- automation.motion_control_flur
-        - automation.flur_switch_off_after_motion
         - automation.motion_control_balkon
         - automation.Disco_Bad
-        - automation.Motion_Alarm
-        - automation.Adios
+        - group.Heater_Test
 Lab:
     view: yes
     entities:
@@ -254,7 +258,6 @@ Bad:
     - binary_sensor.Light_Bad
     - switch.Audio_Bad
     - media_player.Disco_Dusche
-    - group.Heater
 Chamber:
     - switch.Funk_Chamber
     - binary_sensor.Light_Chamber
@@ -353,10 +356,17 @@ Kaffeemaschine:
   name: Kaffeemaschine
   icon: mdi:coffee
   entities:
+    - input_boolean.coffee
     - switch.Kaffee_Start_Stop
     - switch.Kaffee_Mahlen_Aus
 Heater:
   name: Durchlauferhitzer
+  icon: mdi:water-pump
+  entities:
+    - input_boolean.heater_hot
+    - input_boolean.heater_cold
+Heater_Test:
+  name: Durchlauferhitzer-Test
   icon: mdi:water-pump
   entities:
     - switch.Heater_Hot

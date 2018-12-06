@@ -11,6 +11,8 @@ homeassistant:
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: Europe/Berlin
+  #customize: !include customize.yaml
+
 
 # Show links to resources in log and frontend
 #introduction:
@@ -844,6 +846,19 @@ input_boolean:
       name: Weekends
       initial: off
       icon: mdi:calendar
+  coffee:
+      name: Make Coffee
+      initial: off
+      icon: mdi:coffee
+  heater_hot:
+      name: hot
+      initial: off
+      icon: mdi:fire
+  heater_cold:
+      name: cold
+      initial: off
+      icon: mdi:snowflake
+
 
 light:
   - platform: yeelight
@@ -1074,7 +1089,6 @@ input_select:
       - Everywhere
     initial: Everywhere
     icon: mdi:speaker-wireless
-
 
 group: !include groups.yaml
 automation: !include automations.yaml

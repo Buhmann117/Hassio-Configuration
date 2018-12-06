@@ -27,6 +27,9 @@
         entity_id: media_player.Disco_Dusche
       - service: switch.turn_off
         entity_id: switch.Audio_Bad
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.heater_cold
 
 
   - id: "Audio Bad ON"
@@ -215,6 +218,57 @@
           topic: "homie/a020a6021250/funkP/dev_1/set"
           payload: "off"
 
+  - id: "Heater Hot ON"
+    alias: "Heater Hot ON"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.heater_hot
+        to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Heater_Hot
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Heater_Hot
+      - delay: 00:00:01
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.heater_cold
+  - id: "Heater Hot OFF"
+    alias: "Heater Hot OFF"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.heater_hot
+        to: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Heater_Hot
+
+  - id: "Heater Cold ON"
+    alias: "Heater Cold ON"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.heater_cold
+        to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Heater_Cold
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Heater_Cold
+      - delay: 00:00:01
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.heater_hot
+  - id: "Heater Cold OFF"
+    alias: "Heater Cold OFF"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.heater_cold
+        to: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.Heater_Cold
 # Arbeitszimmer
 
   - id: Arbeitszimmer_heater_weekend
@@ -582,6 +636,45 @@
       #  data_template:
       #    message: "Heizung an."
 
+# Kueche
+
+  - id: "Coffee ON"
+    alias: "Make Coffee"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.coffee
+        to: 'on'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Kaffee_Start_Stop
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Kaffee_Start_Stop
+      - delay: 00:00:01
+      - service: switch.turn_on
+        entity_id: switch.Kaffee_Mahlen_Aus
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Kaffee_Mahlen_Aus
+
+  - id: "Coffee OFF"
+    alias: "Make Coffee"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.coffee
+        to: 'off'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.Kaffee_Start_Stop
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Kaffee_Start_Stop
+      - delay: 00:00:01
+      - service: switch.turn_on
+        entity_id: switch.Kaffee_Mahlen_Aus
+      - delay: 00:00:01
+      - service: switch.turn_off
+        entity_id: switch.Kaffee_Mahlen_Aus
 #Schlafzimmer
 
   - id: alarm_1_weekday

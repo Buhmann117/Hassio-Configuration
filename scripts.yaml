@@ -1,4 +1,4 @@
-
+#IR-Remote:
 irlamp_lamp:
   sequence:
     - service: remote.send_command
@@ -14,7 +14,6 @@ irlamp_off:
     - service: remote.send_command
       entity_id: 'remote.Wohnzimmer_Remote'
       data: {"command":"Z6W/AKoBAAAPBQAAdIsAALBiAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABARABEBAQEBAQASABARABEBAQEBAQATABARABEBAQEBAQASABARABEBAQEBAQATABARABEBAQEBAQASABARABEBAQEBAQATABARABEBAQEBAQASABARABEBAQEBAQAQA="}
-
 
 television_power:
   sequence:
@@ -75,3 +74,13 @@ radio538:
           {% elif is_state("input_select.radio_station", "Dinamo.FM Sleep") %} http://channels.dinamo.fm/sleep-aac
           {% endif %}
          media_content_type: 'audio/mp4'
+
+#Test
+#heater_hot:
+#  alias: hot
+#  sequence:
+#    - service: switch.turn_on
+#      entity_id: switch.Heater_Hot
+#    - delay: 00:00:01
+#    - service: switch.turn_off
+#      entity_id: switch.Heater_Hot
