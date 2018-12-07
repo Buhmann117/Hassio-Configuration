@@ -107,6 +107,10 @@ cloud:
         - input_boolean
       exclude_entities:
         - group.automation
+        - switch.Kaffee_Start_Stop
+        - switch.Kaffee_Mahlen_Aus
+        - switch.Heater_Hot
+        - switch.Heater_Cold
 
 maxcube:
   gateways:
@@ -854,10 +858,6 @@ input_boolean:
       name: hot
       initial: off
       icon: mdi:fire
-  heater_cold:
-      name: cold
-      initial: off
-      icon: mdi:snowflake
 
 
 light:

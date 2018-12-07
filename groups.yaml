@@ -364,7 +364,6 @@ Heater:
   icon: mdi:water-pump
   entities:
     - input_boolean.heater_hot
-    - input_boolean.heater_cold
 Heater_Test:
   name: Durchlauferhitzer-Test
   icon: mdi:water-pump
