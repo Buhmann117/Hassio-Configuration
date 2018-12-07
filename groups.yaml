@@ -361,12 +361,12 @@ Kaffeemaschine:
     - switch.Kaffee_Mahlen_Aus
 Heater:
   name: Durchlauferhitzer
-  icon: mdi:water-pump
+  icon: mdi:shower-head
   entities:
     - input_boolean.heater_hot
 Heater_Test:
   name: Durchlauferhitzer-Test
-  icon: mdi:water-pump
+  icon: mdi:shower-head
   entities:
     - switch.Heater_Hot
     - switch.Heater_Cold

@@ -626,7 +626,7 @@ switch 2:
      retain: true
   -  platform: mqtt
      name: "Kaffee Start Stop"
-     icon: mdi:coffee
+     icon: mdi:power-standby
      state_topic: "homie/600194225ac2/motor/dev_1"
      command_topic: "homie/600194225ac2/motor/dev_1/set"
      payload_on: "on"
@@ -635,7 +635,7 @@ switch 2:
      retain: true
   -  platform: mqtt
      name: "Kaffee Mahlen Aus"
-     icon: mdi:coffee
+     icon: mdi:pinwheel
      state_topic: "homie/600194225ac2/motor/dev_2"
      command_topic: "homie/600194225ac2/motor/dev_2/set"
      payload_on: "on"
