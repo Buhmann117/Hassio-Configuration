@@ -3,8 +3,8 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 50.8805932
-  longitude: 6.8881425
+  latitude: !secret latitude_secret
+  longitude: !secret longitude_secret
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 91
   # metric for Metric, imperial for Imperial
@@ -95,6 +95,18 @@ logbook:
 
 hassio:
 
+lovelace:
+  mode: yaml
+
+influxdb:
+  host: localhost
+  port: 8086
+  database: !secret influxdb_database
+  username: !secret influxdb_username
+  password: !secret influxdb_password
+  max_retries: 3
+  default_measurement: state
+
 cloud:
   google_actions:
     filter:
@@ -165,9 +177,21 @@ panel_iframe:
     title: 'Kodi'
     url: 'http://192.168.1.200:8080' #changed
     icon: mdi:kodi
+  influxdb:
+    title: InfluxDB
+    icon: mdi:chart-areaspline
+    url: http://192.168.1.192:8888
+  grafana:
+    title: Grafana
+    icon: mdi:chart-timeline
+    url: http://192.168.1.192:3000
 
 # Track the sun
 sun:
+
+weather:
+  - platform: darksky
+    api_key: !secret darksky_apikey
 
 media_player:
   - platform: kodi
@@ -213,6 +237,18 @@ sensor:
       - 'time_utc'
       - 'beat'
   - platform: cpuspeed
+  - platform: darksky
+    api_key: !secret darksky_apikey
+    forecast:
+      - 0
+    monitored_conditions:
+      - summary
+      - icon
+      - temperature
+      - humidity
+      - pressure
+      - hourly_summary
+    units: si
   - platform: time_date
     friendly_name: current_time_for_alarm_1
     display_options:
@@ -276,6 +312,7 @@ sensor 2:
     state_topic: "homie/a020a6291815/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Arbeitszimmer"
+    icon: mdi:water-percent
 
 sensor 3:
   - platform: mqtt
@@ -288,6 +325,7 @@ sensor 4:
     state_topic: "homie/5ccf7f34095f/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Kueche"
+    icon: mdi:water-percent
 
 sensor 5:
   - platform: mqtt
@@ -300,6 +338,7 @@ sensor 6:
     state_topic: "homie/a020a6021250/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Schlafzimmer"
+    icon: mdi:water-percent
 
 sensor 7:
   - platform: mqtt
@@ -312,6 +351,7 @@ sensor 8:
     state_topic: "homie/18fe34d78eba/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Pott"
+    icon: mdi:water-percent
 
 sensor 9:
   - platform: mqtt
@@ -324,6 +364,7 @@ sensor 10:
     state_topic: "homie/5ccf7ffa70ff/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Bad"
+    icon: mdi:water-percent
 
 sensor 11:
   - platform: mqtt
@@ -336,6 +377,7 @@ sensor 12:
     state_topic: "homie/6001942201de/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Chamber"
+    icon: mdi:water-percent
 
 sensor 13:
   - platform: mqtt
@@ -348,6 +390,7 @@ sensor 14:
     state_topic: "homie/a020a617acd1/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Flur"
+    icon: mdi:water-percent
 
 sensor 15:
   - platform: mqtt
@@ -360,6 +403,7 @@ sensor 16:
     state_topic: "homie/5ccf7fa2e887/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Wohnzimmer"
+    icon: mdi:water-percent
 
 sensor 17:
   - platform: mqtt
@@ -372,6 +416,7 @@ sensor 18:
     state_topic: "homie/60019422344b/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Balkon"
+    icon: mdi:water-percent
 
 sensor 19:
   - platform: mqtt
@@ -384,6 +429,7 @@ sensor 20:
     state_topic: "homie/a020a6291843/humidity/degrees"
     unit_of_measurement: "%"
     name: "Humidity Patricks Room"
+    icon: mdi:water-percent
 
 
 binary_sensor 1:
@@ -587,6 +633,11 @@ camera:
     still_image_url: http://192.168.1.207:8081
     mjpeg_url: http://192.168.1.207:8081
     name: Pi Cam
+  - platform: generic
+    name: Grafana_Temp
+    still_image_url: 'http://192.168.1.192:3000/d/Jq31GzRRk/home-assistant?orgId=1&panelId=2&fullscreen&from=1546147787245&to=1546169387246'
+    username: !secret grafana_username
+    password: !secret grafana_password
 
 
 switch 1:
@@ -928,7 +979,7 @@ remote:
   - platform: xiaomi_miio
     name: "Wohnzimmer Remote"
     host: 192.168.1.41
-    token: DD17AF64901DCDC9B3640098BFFD4D54
+    token: !secret remote_token
 
 
 scene:

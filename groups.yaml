@@ -190,14 +190,16 @@ Internet:
     - sensor.speedtest_ping
     - sensor.speedtest_upload
 Wetter:
-    - sensor.weather_temperature
+    - sensor.dark_sky_hourly_summary
+    - sensor.dark_sky_temperature
     - sensor.Temperature_Balkon
-    - sensor.weather_humidity
+    - sensor.dark_sky_humidity
     - sensor.Humidity_Balkon
-    - sensor.weather_pressure
+    - sensor.dark_sky_pressure
     - sensor.weather_wind_speed
 
 Temperature:
+    - camera.Grafana_Temp
     - sensor.Temperature_Wohnzimmer
     - sensor.Temperature_Kueche
     - sensor.Temperature_Arbeitszimmer
